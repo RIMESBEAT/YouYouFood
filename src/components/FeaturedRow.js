@@ -16,7 +16,11 @@ const FeaturedRow = ({ short_description, name, id }) => {
    ...,
   restaurant[]->{
     ...,
-    dishes[]->,
+    dishes[]->{
+      ...,
+      swallows[]->,
+      meats[]->,
+    },
     type->{
       name
     }
@@ -29,8 +33,6 @@ const FeaturedRow = ({ short_description, name, id }) => {
         setRestaurant(data?.restaurant);
       });
   }, []);
-
-  console.log(restaurant);
   return (
     <View className=" mx-2" key={id}>
       <View className="flex-row items-center ">
@@ -39,18 +41,23 @@ const FeaturedRow = ({ short_description, name, id }) => {
       </View>
       <Text>{short_description}</Text>
 
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} >
-        {restaurant?.map((restaurant) => (
-            <FeaturedCard
-                key={restaurant._id}
-                id={restaurant._id}
-                name={restaurant.name}
-                businessAddress={restaurant.address}
-                imageUrl={restaurant.imageUrl}
-                rating={restaurant.rating}
-
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        {restaurant?.map((item) => (
+          <FeaturedCard
+            key={item._id}
+            id={item._id}
+            name={item.name}
+            address={item.address}
+            imageUrl={item.imageUrl}
+            rating={item.rating}
+            lat={item.lat}
+            description={item.description}
+            long={item.long}
+            dishes={item.dishes}
+            swallows={item.swallows}
+            meats={item.meats}
           />
-        ))} 
+        ))}
       </ScrollView>
     </View>
   );

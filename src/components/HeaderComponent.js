@@ -22,8 +22,11 @@ const HeaderComponent = () => {
       </View>
       {/* Search */}
       <View className="flex-row mx-4 py-4 items-center space-x-2">
-        <View className="flex-row flex-1 items-center bg-gray-300 rounded">
-          <MagnifyingGlassIcon size={25} color="#0D9253" />
+        <View className="flex-row pl-2 flex-1 items-center  bg-gray-300 rounded">
+          <View>
+            <MagnifyingGlassIcon size={25} color="#0D9253" className="" />
+          </View>
+
           <TextInput
             placeholder="Search Food Here"
             keyboardType="default"

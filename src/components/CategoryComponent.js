@@ -6,16 +6,40 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { filterData } from "../global/Data";
 import { ScrollView } from "react-native";
+import CategoryCard from "./CategoryCard";
+import { sanityClient } from "../../sanity";
 
-const CategoryComponent = ({name, imageUrl}) => {
+const CategoryComponent = () => {
+  const [category, setCategory] = useState();
+
+  useEffect(() => {
+    sanityClient
+      .fetch(
+        `
+    *[_type == "category" ]{
+...
+} 
+
+    `
+      )
+      .then((data) => {
+        setCategory(data);
+      });
+  }, []);
   return (
-    <TouchableOpacity className=" pt-4 pb-4 mx-2 rounded-md relative">
-      <Image source={ imageUrl} className="h-20 w-20 rounded-md bg-gray-100" />
-      <Text className="absolute bottom-4 left-2 font-bold text-white bg-green-700 px-1">{name}</Text>
-    </TouchableOpacity>
+    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      {category?.map((item) => (
+        <CategoryCard
+          name={item.name}
+          imageUrl={item.imageUrl}
+          key={item._id}
+          id={item._id}
+        />
+      ))}
+    </ScrollView>
   );
 };
 

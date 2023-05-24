@@ -25,6 +25,7 @@ import HeaderComponent from "../components/HeaderComponent";
 import { sanityClient } from "../../sanity";
 import FeaturedRow from "../components/FeaturedRow";
 import FeaturedCard from "../components/FeaturedCard";
+import { StatusBar } from "react-native";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -41,6 +42,7 @@ const HomeScreen = () => {
     *[_type == "featured"]{
 ...,
   restaurant[]->{
+    ...,
     dishes[]->
   }
 }
@@ -49,8 +51,11 @@ const HomeScreen = () => {
     })
   }, []);
 
+  
   return (
     <SafeAreaView className="pt-5 bg-white">
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
+
       <View>
         {/* Header */}
         <View>
@@ -65,20 +70,7 @@ const HomeScreen = () => {
           }}
         >
           <View>
-            <FlatList
-              data={filterData}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              keyExtractor={(item) => item.id}
-              renderItem={({ item }) => (
-                <View className="">
-                  <CategoryComponent
-                    name={item.name}
-                    imageUrl={item.imageUrl}
-                  />
-                </View>
-              )}
-            />
+            <CategoryComponent />
           </View>
           {/* Featured 1 */}
 

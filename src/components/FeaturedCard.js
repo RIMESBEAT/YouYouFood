@@ -7,16 +7,40 @@ import {
 } from "react-native-heroicons/solid";
 import { MapPinIcon } from "react-native-heroicons/outline";
 import { urlFor } from "../../sanity";
+import { useNavigation } from "@react-navigation/native";
 
 const FeaturedCard = ({
   name,
   businessAddress,
   rating,
   imageUrl,
-  foodType,
+swallows,
+  dishes,
+  meats,
+  description,
+  address,
+  lat,
+  long,
 }) => {
+  const navigation = useNavigation();
   return (
-    <TouchableOpacity className=" pt-4 pb-4 mx-2 ">
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate("Restaurant", {
+          name,
+          rating,
+          imageUrl,
+          dishes,
+          description,
+          address,
+          lat,
+          long,
+          swallows,
+          meats
+        });
+      }}
+      className=" pt-4 pb-4 mx-2 "
+    >
       <View className="  shadow-lg  bg-white rounded-lg">
         <Image
           source={{ uri: urlFor(imageUrl).url() }}
@@ -27,11 +51,10 @@ const FeaturedCard = ({
           <View className="flex-row items-center space-x-1 py-2">
             <StarIcon size={20} color="#0D9253" />
             <Text className="font-bold">{rating}</Text>
-            <Text className="font-bold">{foodType}</Text>
           </View>
           <View className="flex-row py-2">
             <MapPinIcon size={20} color="#0D9253" />
-            <Text>{businessAddress}</Text>
+            <Text>{address}</Text>
           </View>
         </View>
       </View>

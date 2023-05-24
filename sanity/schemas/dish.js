@@ -13,7 +13,7 @@ export default defineType({
     },
     {
       name: 'price',
-      type: 'string',
+      type: 'number',
       title: 'Price',
       validation: (Rule) => Rule.required(),
     },
@@ -28,6 +28,18 @@ export default defineType({
       type: 'image',
       title: 'Dish Image',
       validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'swallows',
+      type: 'array',
+      title: 'Swallows',
+      of: [{type: 'reference', to: [{type: 'swallows'}]}],
+    },
+    {
+      name: 'meats',
+      type: 'array',
+      title: 'Meats',
+      of: [{type: 'reference', to: [{type: 'meats'}]}],
     },
   ],
 })
